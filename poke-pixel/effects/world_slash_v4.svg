@@ -1,0 +1,15 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="void-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000" />
+      <stop offset="50%" stop-color="#4c1d95" />
+      <stop offset="100%" stop-color="#fff" />
+    </linearGradient>
+  </defs>
+  <!-- The Void Cut -->
+  <path d="M10,10 L190,190" stroke="url(#void-grad)" stroke-width="20" />
+  <path d="M0,0 L200,200" stroke="#000" stroke-width="2" opacity="0.5" />
+  <!-- Reality Shards -->
+  <path d="M50,100 L30,120 L60,110 Z" fill="#fff" />
+  <path d="M150,80 L170,60 L140,70 Z" fill="#fff" />
+</svg>

@@ -1,0 +1,24 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="electric-core" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="1" />
+      <stop offset="60%" stop-color="#fbbf24" stop-opacity="1" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shock-glow">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Core Orb -->
+  <circle cx="100" cy="100" r="70" fill="url(#electric-core)" filter="url(#shock-glow)" />
+  
+  <!-- Chaos Lightning -->
+  <path d="M100,30 L120,80 L80,120 L130,170" fill="none" stroke="#fff" stroke-width="4" />
+  <path d="M30,100 L80,80 L120,120 L170,70" fill="none" stroke="#fff" stroke-width="4" />
+  <path d="M50,50 L150,150 M150,50 L50,150" fill="none" stroke="#fcd34d" stroke-width="3" opacity="0.8" />
+</svg>

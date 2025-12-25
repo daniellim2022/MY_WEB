@@ -1,0 +1,15 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="cloud-blur">
+      <feGaussianBlur stdDeviation="8" />
+    </filter>
+  </defs>
+  <!-- Dust Clouds -->
+  <circle cx="60" cy="140" r="40" fill="#d6d3d1" filter="url(#cloud-blur)" opacity="0.9" />
+  <circle cx="140" cy="140" r="50" fill="#a8a29e" filter="url(#cloud-blur)" opacity="0.9" />
+  <circle cx="100" cy="80" r="45" fill="#e7e5e4" filter="url(#cloud-blur)" opacity="0.8" />
+  <!-- Particles -->
+  <rect x="50" y="50" width="5" height="5" fill="#78716c" />
+  <rect x="150" y="80" width="8" height="8" fill="#57534e" />
+  <rect x="100" y="150" width="6" height="6" fill="#78716c" />
+</svg>

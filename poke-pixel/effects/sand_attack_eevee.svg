@@ -1,0 +1,22 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sand-jet" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d6d3d1" stop-opacity="0" />
+      <stop offset="50%" stop-color="#a8a29e" />
+      <stop offset="100%" stop-color="#78716c" stop-opacity="0" />
+    </linearGradient>
+     <filter id="wind-blur">
+      <feGaussianBlur stdDeviation="10,2" />
+    </filter>
+  </defs>
+  
+  <!-- Fast Wind Streams -->
+  <path d="M-50,50 Q100,20 250,80" stroke="url(#sand-jet)" stroke-width="40" fill="none" filter="url(#wind-blur)" />
+  <path d="M-50,150 Q100,120 250,100" stroke="url(#sand-jet)" stroke-width="30" fill="none" filter="url(#wind-blur)" />
+  
+  <!-- Pebbles -->
+  <circle cx="50" cy="60" r="4" fill="#57534e" />
+  <circle cx="120" cy="100" r="5" fill="#57534e" />
+  <circle cx="180" cy="80" r="3" fill="#57534e" />
+  <circle cx="80" cy="140" r="4" fill="#57534e" />
+</svg>

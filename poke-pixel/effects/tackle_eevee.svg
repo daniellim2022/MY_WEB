@@ -1,0 +1,19 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="impact-grad" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#fff" />
+      <stop offset="100%" stop-color="#fca5a5" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <!-- Comic Impact: Rounded "POW" shape -->
+  <path d="M100,20 Q130,50 160,30 Q150,70 180,90 Q140,110 160,150 Q120,130 100,180 Q80,130 40,150 Q60,110 20,90 Q50,70 40,30 Q70,50 100,20 Z" 
+        fill="url(#impact-grad)" stroke="#f87171" stroke-width="8" stroke-linejoin="round" />
+  
+  <!-- Speed Lines -->
+  <path d="M100,100 L180,20" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+  <path d="M100,100 L20,20" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+  <path d="M100,100 L180,180" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+  <path d="M100,100 L20,180" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+  
+  <circle cx="100" cy="100" r="30" fill="#fff" opacity="0.8" />
+</svg>
