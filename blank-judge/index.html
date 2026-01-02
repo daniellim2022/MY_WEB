@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Blank Judge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;500;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Noto Sans KR', 'JetBrains Mono', monospace;
+      background-color: #020617;
+      color: #e2e8f0;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .typing-cursor::after {
+      content: '▋';
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .animate-fade-in {
+      opacity: 0;
+      animation: fade-in 0.1s forwards;
+    }
+
+    .clip-path-slant {
+      clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+    }
+
+    .mask-linear-gradient {
+      mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    }
+
+    .drop-shadow-glow {
+      filter: drop-shadow(0 0 5px rgba(6, 182, 212, 0.5));
+    }
+  </style>
+  <script type="module" crossorigin src="./assets/index-D3eZ2SxV.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-__6f6UsT.css">
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>
