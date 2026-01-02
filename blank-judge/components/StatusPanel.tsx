@@ -21,6 +21,18 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({ defense }) => {
         <div className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600 font-black text-2xl tracking-tighter drop-shadow-sm" style={{ fontFamily: 'Impact, sans-serif' }}>
           공백의 심판자
         </div>
+        <button
+          onClick={() => {
+            if (confirm('API 키를 재설정하시겠습니까?')) {
+              localStorage.removeItem('gemini_api_key');
+              window.location.reload();
+            }
+          }}
+          className="text-slate-500 hover:text-cyan-400 transition-colors"
+          title="API 키 재설정"
+        >
+          <i className="fas fa-key"></i>
+        </button>
         <div className="hidden md:block h-8 w-px bg-slate-800"></div>
         <div className="hidden md:block text-xs text-slate-400 font-mono leading-tight">
           CASE #2024-K-09 <br />

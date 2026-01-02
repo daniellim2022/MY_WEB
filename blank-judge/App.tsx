@@ -78,11 +78,10 @@ export default function App() {
       setGameState(GameState.PLAYING);
     } catch (e) {
       console.error(e);
-      // If auth fails, removing the key might be good UX so they can try again.
-      // localStorage.removeItem('gemini_api_key'); 
-      // setApiKey(null);
-      // setShowApiKeyModal(true);
-      setMessages([{ role: 'system', text: '시스템 오류: 연결 실패. API 키를 확인해주세요.' }]);
+      setMessages([{ role: 'system', text: '시스템 오류: 연결 실패. API 키를 재설정합니다...' }]);
+      localStorage.removeItem('gemini_api_key');
+      setApiKey(null);
+      setTimeout(() => setShowApiKeyModal(true), 1500); // Give user time to read the error
     } finally {
       setIsThinking(false);
     }

@@ -15,7 +15,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ onSave }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
             <div className="w-full max-w-md bg-slate-900 border border-cyan-500/50 rounded-lg p-6 shadow-[0_0_50px_rgba(6,182,212,0.2)]">
                 <h2 className="text-2xl font-bold text-cyan-400 mb-4 flex items-center gap-2">
                     <i className="fas fa-shield-alt"></i> 보안 접근 승인
