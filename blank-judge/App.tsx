@@ -3,6 +3,7 @@ import { InterrogationRoom } from './components/InterrogationRoom';
 import { EvidenceBoard } from './components/EvidenceBoard';
 import { StatusPanel } from './components/StatusPanel';
 import { GameOverScreen } from './components/GameOverScreen';
+import { ApiKeyModal } from './components/ApiKeyModal';
 import { initializeChat, sendMessageToSuspect, analyzeInvestigator, getHintFromChief } from './services/geminiService';
 import { playTypingSound, playAlertSound, playEvidenceSound } from './services/audioService';
 import { Message, Evidence, GameState } from './types';
@@ -32,10 +33,6 @@ const INITIAL_EVIDENCE: Evidence[] = [
   }
 ];
 
-import { ApiKeyModal } from './components/ApiKeyModal';
-
-// ... imports ...
-
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isThinking, setIsThinking] = useState(false);
@@ -46,6 +43,7 @@ export default function App() {
   const [report, setReport] = useState<string>("");
   const [showEvidence, setShowEvidence] = useState(false); // Mobile Toggle State
   const [apiKey, setApiKey] = useState<string | null>(null);
+  const [showApiKeyModal, setShowApiKeyModal] = useState(false);
 
   // Initialize Game on Mount
   useEffect(() => {
@@ -53,12 +51,15 @@ export default function App() {
     if (storedKey) {
       setApiKey(storedKey);
       startNewGame(storedKey);
+    } else {
+      setShowApiKeyModal(true);
     }
   }, []);
 
   const handleSaveKey = (key: string) => {
     localStorage.setItem('gemini_api_key', key);
     setApiKey(key);
+    setShowApiKeyModal(false);
     startNewGame(key);
   };
 
@@ -77,8 +78,11 @@ export default function App() {
       setGameState(GameState.PLAYING);
     } catch (e) {
       console.error(e);
-      setMessages([{ role: 'system', text: '시스템 오류: 보안 라인 연결 실패. API 키를 확인하세요. (API 키가 만료되었거나 권한이 없을 수 있습니다.)' }]);
-      // If auth fails, maybe we should clear the key? Optional.
+      // If auth fails, removing the key might be good UX so they can try again.
+      // localStorage.removeItem('gemini_api_key'); 
+      // setApiKey(null);
+      // setShowApiKeyModal(true);
+      setMessages([{ role: 'system', text: '시스템 오류: 연결 실패. API 키를 확인해주세요.' }]);
     } finally {
       setIsThinking(false);
     }
@@ -237,9 +241,14 @@ export default function App() {
       {/* Heartbeat Overlay - Red Vignette */}
       <div className={`absolute inset-0 pointer-events-none z-40 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(220,38,38,0.3)_100%)] ${heartbeatClass}`}></div>
 
+      {/* API Key Modal */}
+      {showApiKeyModal && (
+        <ApiKeyModal onSave={handleSaveKey} />
+      )}
+
       {/* Game Over Screen Overlay */}
       {(gameState === GameState.GAME_OVER_WON || gameState === GameState.GAME_OVER_LOST) && (
-        <GameOverScreen state={gameState} onRestart={startNewGame} report={report} />
+        <GameOverScreen state={gameState} onRestart={() => apiKey && startNewGame(apiKey)} report={report} />
       )}
 
       {/* 1. Header / Status */}
@@ -274,8 +283,6 @@ export default function App() {
           }} />
         </div>
       </div>
-
-
     </div>
   );
 }
