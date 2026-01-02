@@ -38,8 +38,8 @@ You will receive your current [Mental Defense: X%] at the start of every turn.
 The victim 'Goro' died of a heart attack at 8:00 PM. You claim you were studying.
 `;
 
-export const initializeChat = async (): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+export const initializeChat = async (apiKey: string): Promise<string> => {
+  const ai = new GoogleGenAI({ apiKey });
 
   const model = ai.chats.create({
     model: 'gemini-2.0-flash-exp', // Fast and smart

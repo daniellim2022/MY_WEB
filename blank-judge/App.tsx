@@ -32,6 +32,10 @@ const INITIAL_EVIDENCE: Evidence[] = [
   }
 ];
 
+import { ApiKeyModal } from './components/ApiKeyModal';
+
+// ... imports ...
+
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isThinking, setIsThinking] = useState(false);
@@ -41,27 +45,40 @@ export default function App() {
   const [shake, setShake] = useState(false);
   const [report, setReport] = useState<string>("");
   const [showEvidence, setShowEvidence] = useState(false); // Mobile Toggle State
+  const [apiKey, setApiKey] = useState<string | null>(null);
 
-  // Initialize Game
+  // Initialize Game on Mount
   useEffect(() => {
-    startNewGame();
+    const storedKey = localStorage.getItem('gemini_api_key');
+    if (storedKey) {
+      setApiKey(storedKey);
+      startNewGame(storedKey);
+    }
   }, []);
 
-  const startNewGame = async () => {
+  const handleSaveKey = (key: string) => {
+    localStorage.setItem('gemini_api_key', key);
+    setApiKey(key);
+    startNewGame(key);
+  };
+
+  const startNewGame = async (key: string) => {
     setIsThinking(true);
     setGameState(GameState.INTRO);
     setDefense(100);
     setMessages([]);
     setReport("");
     try {
-      const rawIntro = await initializeChat();
+      const rawIntro = await initializeChat(key);
       const { emotionIndex, cleanText } = parseResponse(rawIntro);
 
       setCurrentEmotion(emotionIndex);
       setMessages([{ role: 'model', text: cleanText }]);
       setGameState(GameState.PLAYING);
     } catch (e) {
-      setMessages([{ role: 'system', text: '시스템 오류: 보안 라인 연결 실패. API 키를 확인하세요.' }]);
+      console.error(e);
+      setMessages([{ role: 'system', text: '시스템 오류: 보안 라인 연결 실패. API 키를 확인하세요. (API 키가 만료되었거나 권한이 없을 수 있습니다.)' }]);
+      // If auth fails, maybe we should clear the key? Optional.
     } finally {
       setIsThinking(false);
     }
