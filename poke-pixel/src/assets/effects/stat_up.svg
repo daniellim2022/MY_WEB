@@ -1,0 +1,13 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="up-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0" />
+      <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+      <stop offset="100%" stop-color="#fca5a5" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <!-- Up Arrows -->
+  <path d="M30,80 L30,40 L20,50 M30,40 L40,50" stroke="url(#up-grad)" stroke-width="4" fill="none" />
+  <path d="M50,90 L50,30 L40,40 M50,30 L60,40" stroke="url(#up-grad)" stroke-width="6" fill="none" />
+  <path d="M70,80 L70,40 L60,50 M70,40 L80,50" stroke="url(#up-grad)" stroke-width="4" fill="none" />
+</svg>

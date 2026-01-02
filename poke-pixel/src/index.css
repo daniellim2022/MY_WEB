@@ -1,0 +1,1825 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --tile-size: 48px;
+  --bg-color: #f8f8f8;
+  --text-color: #333;
+  --border-color: #444;
+  --primary-red: #cc0000;
+  --primary-white: #ffffff;
+  --grass-green: #78c850;
+}
+
+* {
+  box-sizing: border-box;
+  image-rendering: pixelated;
+  font-family: 'Press Start 2P', cursive;
+  user-select: none;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #202020;
+  /* Darker background for cinema feel */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* New Game Frame Container */
+.game-container {
+  /* Previously filled screen, now restricted */
+  width: 800px;
+  max-width: 95vw;
+  aspect-ratio: 4/3;
+  height: auto;
+  max-height: 95vh;
+
+  background-color: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  border: 4px solid #333;
+  border-radius: 8px;
+
+  /* Centering content inside */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Battle Scene Specifics */
+.battle-scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* Simple gradient background for ground/sky distinction if no image */
+  background: linear-gradient(to bottom, #f8f8f8 60%, #e0e0e0 60%);
+}
+
+.enemy-area {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 40%;
+  height: 40%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.player-area {
+  position: absolute;
+  bottom: 25%;
+  /* Leave room for dialog box */
+  left: 10%;
+  width: 40%;
+  height: 40%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* Shadow for grounding */
+.sprite-container::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  width: 80%;
+  height: 20px;
+  background: transparent;
+  border-radius: 50%;
+  z-index: 1;
+  /* Behind sprite */
+  left: 10%;
+}
+
+.tile {
+  width: var(--tile-size);
+  height: var(--tile-size);
+  position: absolute;
+}
+
+.player {
+  width: var(--tile-size);
+  height: var(--tile-size);
+  position: absolute;
+  transition: all 0.1s steps(4);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-sprite {
+  width: 24px;
+  height: 32px;
+  background-color: #e00;
+  border: 2px solid #000;
+  border-radius: 4px;
+}
+
+.grass {
+  background-color: var(--grass-green);
+  opacity: 0.8;
+}
+
+.grass::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* High-Fidelity Cinematic Overhaul */
+.title-screen {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.intro-overlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  cursor: pointer;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg,
+      rgba(255, 0, 0, 0.06),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+
+/* Battle UI Components */
+.info-box {
+  position: absolute;
+  background: #fff;
+  border: 4px solid #333;
+  padding: 10px;
+  border-radius: 8px;
+  /* Rounded for a smoother look */
+  font-size: 14px;
+  z-index: 20;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.info-box.enemy {
+  top: 5%;
+  left: 5%;
+}
+
+.info-box.player {
+  bottom: 28%;
+  /* Positioned above the dialog box */
+  right: 5%;
+}
+
+.dialog-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16%;
+  background-color: #fff;
+  border-top: 4px solid #333;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 100;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.health-bar-container {
+  width: 150px;
+  height: 12px;
+  background: #ccc;
+  border: 2px solid #333;
+  margin-top: 5px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.health-bar-fill {
+  height: 100%;
+  transition: width 0.5s ease-out, background-color 0.3s;
+}
+
+
+.journey-map-hint {
+  width: 150%;
+  height: 150%;
+  position: absolute;
+  opacity: 0.15;
+  background: radial-gradient(circle, #33ff33 1px, transparent 1px);
+  background-size: 32px 32px;
+  animation: journeyScale 8s forwards ease-in;
+}
+
+@keyframes journeyPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes journeyFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+    letter-spacing: 20px;
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1);
+    letter-spacing: 12px;
+  }
+
+  80% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes journeyScale {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+
+  to {
+    transform: scale(2) rotate(15deg);
+  }
+}
+
+.iris-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5000;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 100%, black 100%);
+}
+
+.iris-active {
+  animation: irisCinematic 2.5s forwards ease-in;
+}
+
+@keyframes loadProgress {
+  0% {
+    width: 0%;
+  }
+
+  10% {
+    width: 5%;
+  }
+
+  30% {
+    width: 15%;
+  }
+
+  45% {
+    width: 40%;
+  }
+
+  60% {
+    width: 45%;
+  }
+
+  85% {
+    width: 80%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes logoFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-15px) scale(1.05);
+  }
+}
+
+@keyframes irisCinematic {
+  0% {
+    background: radial-gradient(circle, transparent 150%, black 150%);
+  }
+
+  20% {
+    background: radial-gradient(circle, transparent 120%, black 125%);
+  }
+
+  50% {
+    background: radial-gradient(circle, transparent 60%, black 65%);
+  }
+
+  80% {
+    background: radial-gradient(circle, transparent 10%, black 15%);
+  }
+
+  100% {
+    background: radial-gradient(circle, transparent 0%, black 0%);
+  }
+}
+
+.sprite-slide-enemy {
+  animation: slideFromRight 0.8s forwards ease-out;
+}
+
+.sprite-slide-player {
+  animation: slideFromLeft 0.8s forwards ease-out;
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.sprite-slide-out-right {
+  animation: slideOutToRight 0.5s forwards ease-in;
+}
+
+.sprite-slide-out-left {
+  animation: slideOutToLeft 0.5s forwards ease-in;
+}
+
+.sprite-pop-in {
+  animation: popIn 0.5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Battle Layout: CSS Grid for Stability */
+.battle-screen {
+  position: absolute;
+  inset: 0;
+  background-color: #f8f8f8;
+  z-index: 100;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 35% 40% 25%;
+  grid-template-areas:
+    "enemy-hud enemy-sprite"
+    "player-sprite player-hud"
+    "menu menu";
+  padding: 0;
+  gap: 0;
+}
+
+/* Areas */
+.enemy-area {
+  grid-area: enemy-sprite;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: auto;
+  right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  z-index: 5;
+}
+
+.player-area {
+  grid-area: player-sprite;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  bottom: auto;
+  left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 15;
+}
+
+.enemy-hud-container {
+  grid-area: enemy-hud;
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  /* Reset individual scale if needed, or keep consistent */
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 40px;
+  padding-top: 40px;
+  z-index: 10;
+}
+
+.player-hud-container {
+  grid-area: player-hud;
+  position: relative;
+  bottom: auto;
+  right: auto;
+  transform: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 40px;
+  padding-bottom: 20px;
+  z-index: 10;
+}
+
+/* Shadows adjustments for grid */
+.sprite-shadow {
+  position: absolute;
+  bottom: 5px;
+  width: 70%;
+  height: 20%;
+  background: transparent;
+  border-radius: 50%;
+  transform: scaleY(0.5);
+  z-index: -1;
+}
+
+/* Ensure Sprites fit container */
+.enemy-area .sprite-container,
+.player-area .sprite-container {
+  width: 100%;
+  height: 100%;
+  max-width: 240px;
+  /* Limit max size */
+  max-height: 240px;
+
+}
+
+/* Classic Status HUD - specific tweaks for grid */
+.status-hud {
+  width: 220px;
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Slight legible bg */
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.status-name {
+  font-size: 16px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.status-bar-container {
+  /* No box, just bars and text */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hp-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hp-label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  margin-right: 2px;
+}
+
+.hp-bar {
+  flex: 1;
+  height: 12px;
+  background-color: #fff;
+  border: 2px solid #000;
+  position: relative;
+  border-radius: 4px;
+  /* Slight rounded for GBC feel */
+  padding: 1px;
+}
+
+.hp-fill {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.3s;
+}
+
+/* Sprites */
+.sprite-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.player-sprite-back {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent 30%, #444 30%, #444 100%);
+  border-top: 6px solid #000;
+  border-left: 6px solid #000;
+  border-right: 6px solid #000;
+}
+
+/* Classic Double-Border Textbox */
+/* Classic Double-Border Textbox */
+.battle-menu {
+  grid-area: menu;
+  position: relative;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  /* Match previous style */
+  background-color: #fff;
+  border: 4px solid #000;
+  box-shadow:
+    inset 0 0 0 4px #fff,
+    inset 0 0 0 8px #000;
+  padding: 12px;
+  display: flex;
+  z-index: 110;
+  border-radius: 4px;
+}
+
+.inner-border {
+  flex: 1;
+  border: 2px solid #000;
+  display: flex;
+  position: relative;
+}
+
+.battle-text {
+  flex: 2;
+  padding: 8px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  border-right: 4px solid #000;
+  font-weight: bold;
+}
+
+.command-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px;
+  gap: 5px;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 6px 4px;
+  /* Reduced padding */
+  font-size: 11px;
+  /* Smaller font for moves */
+  cursor: pointer;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: bold;
+  white-space: nowrap;
+  /* Prevent wrapping */
+  letter-spacing: -0.5px;
+  /* Condense slightly */
+}
+
+.menu-button.selected::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  font-size: 20px;
+}
+
+.vignette-flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  pointer-events: none;
+  z-index: 1000;
+  animation: flash 0.1s ease-out;
+}
+
+@keyframes flash {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* Dharmachakra Wheel Styles (Updated for top-right) */
+.wheel-container {
+  position: absolute;
+  top: -40px;
+  right: -20px;
+  width: 160px;
+  height: 160px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  border: 6px solid #d4af37;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 15s linear infinite;
+  opacity: 0.6;
+}
+
+.wheel-handle {
+  position: absolute;
+  width: 8px;
+  height: 24px;
+  background: #d4af37;
+  left: 50%;
+  margin-left: -4px;
+  top: -12px;
+  transform-origin: center 92px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Skill Effects */
+.fx-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 500;
+}
+
+/* Skill Effects - Targeted Visuals */
+
+/* Thunderbolt: Lightning bolt appearing over enemy */
+/* Thunderbolt: Enhanced Lightning */
+.fx-thunderbolt-hit {
+  position: absolute;
+  inset: -50px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0 L60 0 L45 40 L80 40 L30 100 L45 50 L10 50 Z' fill='%23ffff00' stroke='%23ffaa00' stroke-width='3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  z-index: 20;
+  animation: thunderStrike 0.6s steps(5);
+  filter: drop-shadow(0 0 15px #ffff00);
+}
+
+@keyframes thunderStrike {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+    transform: scaleX(1.2);
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Iron Tail V4: Overdrive Slash */
+.fx-iron-tail-hit {
+  position: absolute;
+  inset: -100px;
+  background-image: url("./assets/effects/iron_tail_v4.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  z-index: 25;
+  animation: ironTailV4 0.7s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1));
+  mix-blend-mode: hard-light;
+}
+
+/* Quick Attack V4: Lightspeed */
+.fx-quick-attack-hit {
+  position: absolute;
+  inset: -80px;
+  background-image: url("./assets/effects/quick_attack_v4.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  z-index: 25;
+  animation: quickAttackV4 0.4s ease-out forwards;
+  filter: drop-shadow(0 0 10px #fff);
+  mix-blend-mode: screen;
+}
+
+/* Volt Tackle V4: Planetary Devastation */
+.fx-volt-tackle-hit {
+  position: absolute;
+  inset: -150px;
+  background-image: url("./assets/effects/volt_tackle_v4.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  z-index: 30;
+  animation: voltTackleV4 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  filter: drop-shadow(0 0 30px gold) brightness(1.5);
+  mix-blend-mode: screen;
+}
+
+/* Screen Shake Utility */
+.shake-screen {
+  animation: screenShake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/* Tackle V4: Comic CRASH */
+.fx-tackle-hit {
+  position: absolute;
+  inset: -80px;
+  background-image: url("./assets/effects/tackle_v4.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  z-index: 20;
+  animation: tackleV4 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: center bottom;
+}
+
+/* Swift V4: Starfall */
+.fx-swift-hit {
+  position: absolute;
+  inset: -80px;
+  background-image: url("./assets/effects/swift_v4.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  z-index: 20;
+  animation: swiftV4 0.7s linear;
+  filter: drop-shadow(0 0 5px gold);
+}
+
+/* Sand Attack V4: Dust Storm */
+.fx-sand-attack-hit {
+  position: absolute;
+  inset: -100px;
+  background-image: url("./assets/effects/sand_attack_v4.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  z-index: 20;
+  animation: sandV4 1.2s ease-out;
+  mix-blend-mode: multiply;
+}
+
+/* World Slash V4: Void Cut */
+.fx-world-slash-hit {
+  position: absolute;
+  inset: -120px;
+  background-image: url("./assets/effects/world_slash_v4.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  z-index: 20;
+  animation: worldSlashV4 0.9s ease-in-out;
+  mix-blend-mode: exclusion;
+  filter: contrast(1.5);
+}
+
+@keyframes thunderStrike {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+    transform: scaleX(-1);
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ironTailV4 {
+  0% {
+    transform: scale(0.5) rotate(-120deg);
+    opacity: 0;
+    filter: brightness(3);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1.5) rotate(-45deg);
+    filter: brightness(2);
+  }
+
+  40% {
+    transform: scale(1.2) rotate(10deg);
+    filter: brightness(1.5);
+  }
+
+  60% {
+    transform: scale(1.4) rotate(20deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.6) rotate(45deg);
+    opacity: 0;
+    filter: blur(5px);
+  }
+}
+
+@keyframes quickAttackV4 {
+  0% {
+    transform: translate(-100px, 100px) scale(0.5);
+    opacity: 0;
+  }
+
+  20% {
+    transform: translate(100px, -100px) scale(1.2);
+    opacity: 1;
+  }
+
+  30% {
+    transform: translate(-80px, 20px) scale(1.4);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translate(50px, 50px) scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translate(0, 0) scale(2);
+    opacity: 1;
+    filter: brightness(2);
+  }
+
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+@keyframes voltTackleV4 {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+    filter: brightness(3) contrast(2);
+  }
+
+  10% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  30% {
+    transform: scale(2.0) rotate(10deg);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.8) rotate(-10deg);
+    filter: brightness(2);
+  }
+
+  70% {
+    transform: scale(2.5) rotate(15deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(4.0) rotate(0deg);
+    opacity: 0;
+    filter: blur(30px);
+  }
+}
+
+@keyframes screenShake {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  10%,
+  90% {
+    transform: translate(-5px, -5px);
+  }
+
+  20%,
+  80% {
+    transform: translate(5px, 5px);
+  }
+
+  30%,
+  70% {
+    transform: translate(-8px, 5px);
+  }
+
+  40%,
+  60% {
+    transform: translate(8px, -5px);
+  }
+
+  50% {
+    transform: translate(0, 10px);
+  }
+}
+
+@keyframes tackleV4 {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  40% {
+    transform: scale(2.0);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+
+  80% {
+    transform: scale(1.8);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes swiftV4 {
+  0% {
+    transform: translateY(-80px) translateX(-40px) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(180deg) scale(1.2);
+  }
+
+  100% {
+    transform: translateY(80px) translateX(40px) rotate(360deg) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes sandV4 {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.9;
+    transform: scale(2.0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(15px, -15px) scale(2.5);
+  }
+
+  100% {
+    transform: translate(30px, -30px) scale(3.0);
+    opacity: 0;
+  }
+}
+
+@keyframes worldSlashV4 {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  10% {
+    transform: scale(2.0) rotate(-20deg);
+    opacity: 1;
+    filter: invert(1);
+  }
+
+  80% {
+    transform: scale(1.5) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.1) rotate(60deg);
+    opacity: 0;
+  }
+}
+
+/* Old Animations - Kept for fallback or reference if needed, but mostly replaced */
+/* Iron Tail: Slam effect */
+.fx-iron-tail {
+  animation: slamHit 0.5s ease-out;
+}
+
+@keyframes slamHit {
+  0% {
+    transform: translateY(-50px) scale(1.5);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translateY(-10px) scale(1);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Quick Attack: Dash from left/right */
+.fx-quick-attack-player {
+  animation: playerDashHit 0.3s ease-out;
+}
+
+@keyframes playerDashHit {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(100px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.fx-quick-attack-enemy {
+  animation: enemyDashHit 0.3s ease-out;
+}
+
+@keyframes enemyDashHit {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-100px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Generic Flash for hit */
+.fx-hit-flash {
+  animation: hitFlash 0.2s steps(2);
+}
+
+@keyframes hitFlash {
+  0% {
+    filter: brightness(1) invert(0);
+  }
+
+  50% {
+    filter: brightness(100) invert(1);
+  }
+
+  100% {
+    filter: brightness(1) invert(0);
+  }
+}
+
+.fx-quick-attack {
+  animation: dash 0.3s ease-out;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.fx-volt-tackle {
+  background-color: rgba(255, 215, 0, 0.6);
+  animation: chargeImpact 0.6s ease-in-out;
+  border: 4px solid #ffcc00;
+  box-shadow: 0 0 20px #ffcc00;
+}
+
+.fx-tackle {
+  animation: shake 0.3s ease-in-out;
+}
+
+.fx-swift {
+  background: radial-gradient(circle, #fff 10%, transparent 10%);
+  background-size: 20px 20px;
+  animation: stars 0.5s linear infinite;
+}
+
+.fx-baton-pass {
+  background-color: rgba(0, 255, 0, 0.3);
+  animation: flash 0.5s ease-in-out;
+}
+
+.fx-sand-attack {
+  background-color: rgba(194, 178, 128, 0.5);
+  animation: dust 1s ease-out;
+}
+
+@keyframes flashShake {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+
+  10%,
+  90% {
+    transform: translate(-5px, 5px);
+    opacity: 1;
+  }
+
+  20%,
+  80% {
+    transform: translate(5px, -5px);
+  }
+
+  30%,
+  70% {
+    transform: translate(-5px, -5px);
+  }
+
+  40%,
+  60% {
+    transform: translate(5px, 5px);
+  }
+}
+
+@keyframes slam {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2, 0.1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Victory Screen */
+.victory-screen {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  color: #fff;
+  flex-direction: column;
+}
+
+/* RPG Dialog Box Style */
+.victory-box {
+  background-color: #fff;
+  border: 6px double #000;
+  border-radius: 8px;
+  padding: 20px;
+  width: 400px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.victory-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.victory-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-bottom: 2px dashed #000;
+  padding-bottom: 4px;
+}
+
+.victory-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.victory-btn {
+  background: transparent;
+  border: 2px solid #000;
+  color: #000;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.1s;
+}
+
+.victory-btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.victory-btn.discard {
+  border-color: #cc0000;
+  color: #cc0000;
+}
+
+.victory-btn.discard:hover {
+  background: #cc0000;
+  color: #fff;
+}
+
+/* Bag Menu */
+.bag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.bag-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.bag-item.selected {
+  background-color: #eee;
+}
+
+.bag-item.selected::before {
+  content: '▶';
+  margin-right: 5px;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes dash {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes chargeImpact {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  70% {
+    transform: scale(1.1) rotate(-5deg);
+    background-color: rgba(255, 0, 0, 0.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-10px);
+  }
+
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes stars {
+  from {
+    background-position: 0 0;
+    opacity: 1;
+  }
+
+  to {
+    background-position: 100px 100px;
+    opacity: 0;
+  }
+}
+
+@keyframes dust {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+    filter: sepia(1);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Healing Effect: Rising Green Sparkles */
+.fx-heal {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0, 255, 0, 0.6) 2px, transparent 3px);
+  background-size: 20px 20px;
+  opacity: 0;
+  z-index: 20;
+  animation: healSparkle 1s ease-out;
+}
+
+@keyframes healSparkle {
+  0% {
+    opacity: 0;
+    background-position: 0 20px;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    background-position: 0 -50px;
+  }
+}
+
+/* Stat Up Effect: Rising Red Arrows */
+.fx-stat-up {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.fx-stat-up::after {
+  content: '▲ ▲ ▲';
+  color: #cc0000;
+  font-size: 24px;
+  font-weight: bold;
+  animation: statRise 1s ease-out;
+  text-shadow: 2px 2px 0 #fff;
+}
+
+@keyframes statRise {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+/* Character Attack Animations */
+.anim-lunge-player {
+  animation: lungePlayer 0.4s ease-in-out;
+}
+
+.anim-lunge-enemy {
+  animation: lungeEnemy 0.4s ease-in-out;
+}
+
+.anim-spin {
+  animation: spinAttack 0.6s linear;
+}
+
+.anim-channel {
+  animation: channelEnergy 0.6s ease-in-out;
+}
+
+.anim-kick-player {
+  animation: kickPlayer 0.5s ease-out;
+}
+
+.anim-kick-enemy {
+  animation: kickEnemy 0.5s ease-out;
+}
+
+@keyframes lungePlayer {
+  0% {
+    transform: translateX(0);
+    z-index: 10;
+  }
+
+  30% {
+    transform: translateX(60px);
+    z-index: 10;
+  }
+
+  60% {
+    transform: translateX(60px);
+    z-index: 10;
+  }
+
+  100% {
+    transform: translateX(0);
+    z-index: 2;
+  }
+}
+
+@keyframes lungeEnemy {
+  0% {
+    transform: translateX(0);
+    z-index: 10;
+  }
+
+  30% {
+    transform: translateX(-60px);
+    z-index: 10;
+  }
+
+  60% {
+    transform: translateX(-60px);
+    z-index: 10;
+  }
+
+  100% {
+    transform: translateX(0);
+    z-index: 2;
+  }
+}
+
+@keyframes spinAttack {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes channelEnergy {
+  0% {
+    filter: brightness(1);
+    transform: translate(0, 0);
+  }
+
+  25% {
+    filter: brightness(2);
+    transform: translate(1px, -1px);
+  }
+
+  50% {
+    filter: brightness(1.5);
+    transform: translate(-1px, 1px);
+  }
+
+  75% {
+    filter: brightness(2);
+    transform: translate(1px, 1px);
+  }
+
+  100% {
+    filter: brightness(1);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes kickPlayer {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(-30deg) translateY(-20px);
+  }
+
+  60% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes kickEnemy {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(30deg) translateY(-20px);
+  }
+
+  60% {
+    transform: rotate(-10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Game Boy Boot Sequence */
+.gameboy-boot {
+  position: absolute;
+  inset: 0;
+  background-color: #fff;
+  /* Classic white/cream BG */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+.nintendo-logo {
+  font-family: sans-serif;
+  /* Fallback for official font look */
+  font-weight: 900;
+  font-size: 48px;
+  color: #0000a0;
+  /* Classic Blue */
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: logoDrop 2.5s forwards ease-in-out;
+  background: #fff;
+  padding: 5px 15px;
+  border-radius: 50px;
+  /* Pill shape */
+  border: 4px solid #0000a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+}
+
+/* Simulate the "Bing" flash */
+.boot-flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  animation: bootFlash 0.2s 2.2s forwards;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes logoDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bootFlash {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

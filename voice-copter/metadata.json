@@ -1,0 +1,7 @@
+{
+  "name": "Voice Copter",
+  "description": "Control a helicopter using the volume of your voice! Scream to fly high, whisper to drop low.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

@@ -1,0 +1,124 @@
+/* Global Styles */
+body {
+    background-color: #020617;
+    /* Match HTML body bg */
+    color: #ffffff;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel {
+    background: rgba(17, 25, 40, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+/* Text Gradients */
+.text-gradient {
+    background: linear-gradient(to right, #00f3ff, #bc13fe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #030014;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #312E81;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4F46E5;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .animate-scan-line {
+        animation: scan-line 2s linear infinite;
+    }
+}
+
+@keyframes scan-line {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+/* Shake Animation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.animate-shake {
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/* Heartbeat overlay for low defense */
+@keyframes heartbeat-overlay {
+    0% {
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.3;
+    }
+
+    30% {
+        opacity: 0;
+    }
+}
+
+.animate-heartbeat-fast {
+    animation: heartbeat-overlay 0.8s infinite;
+}
+
+.animate-heartbeat-slow {
+    animation: heartbeat-overlay 2s infinite;
+}

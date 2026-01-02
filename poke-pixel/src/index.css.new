@@ -1,0 +1,65 @@
+/* Character Attack Animations - No Scaling */
+.anim-lunge-player {
+  animation: lungePlayer 0.3s ease-in-out;
+}
+
+.anim-lunge-enemy {
+  animation: lungeEnemy 0.3s ease-in-out;
+}
+
+.anim-spin {
+  animation: spinAttack 0.5s linear;
+}
+
+.anim-channel {
+  animation: channelEnergy 0.5s ease-in-out;
+}
+
+.anim-kick-player {
+  animation: kickPlayer 0.4s ease-out;
+}
+
+.anim-kick-enemy {
+  animation: kickEnemy 0.4s ease-out;
+}
+
+@keyframes lungePlayer {
+  0% { transform: translateX(0); z-index: 10; }
+  30% { transform: translateX(60px); z-index: 10; } /* Removed scale */
+  60% { transform: translateX(60px); z-index: 10; }
+  100% { transform: translateX(0); z-index: 2; }
+}
+
+@keyframes lungeEnemy {
+  0% { transform: translateX(0); z-index: 10; }
+  30% { transform: translateX(-60px); z-index: 10; } /* Removed scale */
+  60% { transform: translateX(-60px); z-index: 10; }
+  100% { transform: translateX(0); z-index: 2; }
+}
+
+@keyframes spinAttack {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); } /* Removed scale */
+}
+
+@keyframes channelEnergy {
+  0% { filter: brightness(1); transform: translate(0,0); }
+  25% { filter: brightness(2); transform: translate(1px, -1px); } /* Removed scale */
+  50% { filter: brightness(1.5); transform: translate(-1px, 1px); }
+  75% { filter: brightness(2); transform: translate(1px, 1px); }
+  100% { filter: brightness(1); transform: translate(0,0); }
+}
+
+@keyframes kickPlayer {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(-30deg) translateY(-20px); } /* Removed scale */
+  60% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes kickEnemy {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(30deg) translateY(-20px); } /* Removed scale */
+  60% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
+}

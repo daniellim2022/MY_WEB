@@ -1,0 +1,5 @@
+{
+  "name": "Undertale Asgore Battle Clone",
+  "description": "A web-based recreation of the Asgore boss battle engine using React, Canvas, and Tailwind CSS. Features bullet hell mechanics, blue/orange attacks, and the mercy button destruction sequence.",
+  "requestFramePermissions": []
+}

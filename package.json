@@ -1,0 +1,47 @@
+{
+  "name": "my-website-dashboard",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "homepage": "https://daniellim2022.github.io/MY_WEB/",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build:neocity && npm run build:spiritbound && npm run build:poke && npm run build:iron-fist && npm run build:undertale && npm run build:blind-timer && npm run build:do-not-press && npm run build:dont-smile && npm run build:petty-court && npm run build:voice-copter && npm run build:blank-judge && npm run build",
+    "deploy": "gh-pages -d dist",
+    "build:neocity": "cd neocity-architect && npm install && npm run build && mkdir -p ../public/neocity-architect && cp -R dist/* ../public/neocity-architect/",
+    "build:spiritbound": "cd spiritbound && npm install && npm run build && mkdir -p ../public/spiritbound && cp -R dist/* ../public/spiritbound/",
+    "build:poke": "cd poke-pixel && npm install && npm run build && mkdir -p ../public/poke-pixel && cp -R dist/* ../public/poke-pixel/",
+    "build:iron-fist": "cd iron-fist && npm install && npm run build && mkdir -p ../public/iron-fist && cp -R dist/* ../public/iron-fist/",
+    "build:undertale": "cd undertale && npm install && npm run build",
+    "build:blind-timer": "cd blind-timer && npm install && npm run build",
+    "build:do-not-press": "cd do-not-press && npm install && npm run build",
+    "build:dont-smile": "cd dont-smile-challenge && npm install && npm run build",
+    "build:petty-court": "cd petty-court && npm install && npm run build",
+    "build:voice-copter": "cd voice-copter && npm install && npm run build",
+    "build:blank-judge": "cd blank-judge && npm install && npm run build && mkdir -p ../public/blank-judge && cp -R dist/* ../public/blank-judge/"
+  },
+  "dependencies": {
+    "@google/genai": "^1.30.0",
+    "@types/three": "^0.182.0",
+    "dompurify": "^3.3.0",
+    "lucide-react": "^0.554.0",
+    "matter-js": "^0.20.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.6",
+    "three": "^0.182.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/dompurify": "^3.0.5",
+    "@types/matter-js": "^0.20.2",
+    "@types/node": "^22.14.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^5.0.0",
+    "gh-pages": "^6.3.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

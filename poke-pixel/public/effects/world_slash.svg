@@ -1,0 +1,23 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="voidGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#330033;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4b0082;stop-opacity:1" />
+    </linearGradient>
+    <filter id="distortion">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turbulence"/>
+      <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  
+  <!-- Dimensional Tear -->
+  <path d="M10 90 Q50 50 90 10" stroke="url(#voidGradient)" stroke-width="15" stroke-linecap="butt" filter="url(#distortion)" opacity="0.9"/>
+  
+  <!-- Core Cut -->
+  <path d="M15 95 Q55 55 95 5" stroke="#fff" stroke-width="1" opacity="0.8"/>
+  
+  <!-- Fractured shards -->
+  <path d="M40 60 L45 50 L55 55 Z" fill="#000" />
+  <path d="M60 40 L65 30 L75 35 Z" fill="#4b0082" />
+</svg>

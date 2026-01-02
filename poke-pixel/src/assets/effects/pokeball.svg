@@ -1,0 +1,11 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top Half (Red) -->
+  <path d="M5,50 A45,45 0 0,1 95,50 L5,50 Z" fill="#ef4444" stroke="#000" stroke-width="3" />
+  <!-- Bottom Half (White) -->
+  <path d="M5,50 A45,45 0 0,0 95,50 L5,50 Z" fill="#fff" stroke="#000" stroke-width="3" />
+  <!-- Center Button -->
+  <circle cx="50" cy="50" r="12" fill="#fff" stroke="#000" stroke-width="3" />
+  <circle cx="50" cy="50" r="8" fill="#fff" stroke="#9ca3af" stroke-width="1" />
+  <!-- Reflection -->
+  <path d="M30,20 Q40,15 50,20" stroke="#fff" stroke-width="3" opacity="0.5" fill="none" />
+</svg>

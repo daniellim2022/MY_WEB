@@ -1,0 +1,16 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+    </filter>
+  </defs>
+  <!-- Dynamic chaotic motion lines -->
+  <g stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.9">
+    <path d="M-20 40 L30 10 L60 60 L120 40" filter="url(#blur)"/>
+    <path d="M-10 60 L40 30 L80 80 L130 50" filter="url(#blur)"/>
+    
+    <!-- Sharp overlay lines -->
+    <path d="M-20 40 L30 10 L60 60 L120 40" stroke-width="2" opacity="1"/>
+    <path d="M-10 60 L40 30 L80 80 L130 50" stroke-width="2" opacity="1"/>
+  </g>
+</svg>

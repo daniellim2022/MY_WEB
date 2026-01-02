@@ -1,0 +1,14 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="motion-blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4,0" />
+    </filter>
+  </defs>
+  <!-- Speed Lines -->
+  <path d="M-50,50 L250,50" stroke="#fff" stroke-width="10" filter="url(#motion-blur)" opacity="0.6" />
+  <path d="M-50,100 L250,100" stroke="#e2e8f0" stroke-width="15" filter="url(#motion-blur)" opacity="0.8" />
+  <path d="M-50,150 L250,150" stroke="#fff" stroke-width="8" filter="url(#motion-blur)" opacity="0.6" />
+  
+  <!-- Impact ZigZag -->
+  <path d="M20,20 L80,180 L140,20 L200,180" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

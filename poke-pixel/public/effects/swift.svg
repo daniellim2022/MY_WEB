@@ -1,0 +1,20 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="starGlow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <g filter="url(#starGlow)">
+      <!-- Main Star -->
+      <polygon points="50,15 60,40 85,40 65,55 75,80 50,65 25,80 35,55 15,40 40,40" fill="#fff700" stroke="#cca300" stroke-width="1"/>
+      
+      <!-- Trailing Stars -->
+      <polygon points="80,10 85,25 100,25 88,34 94,49 80,40 66,49 72,34 60,25 75,25" fill="#fff700" opacity="0.7" transform="scale(0.6) translate(50, 0)"/>
+      <polygon points="20,70 25,85 40,85 28,94 34,109 20,100 06,109 12,94 00,85 15,85" fill="#fff700" opacity="0.7" transform="scale(0.5) translate(-20, 20)"/>
+  </g>
+</svg>

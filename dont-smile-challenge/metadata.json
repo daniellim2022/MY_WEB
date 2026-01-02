@@ -1,0 +1,7 @@
+{
+  "name": "Don't Smile Challenge",
+  "description": "A challenge app that uses AI face detection to monitor your expression. If you smile, the game is over! Test your poker face.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

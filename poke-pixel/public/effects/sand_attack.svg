@@ -1,0 +1,21 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="grainy">
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/>
+    </filter>
+  </defs>
+  
+  <g fill="#c2b280" opacity="0.8">
+    <circle cx="40" cy="40" r="20" opacity="0.7" />
+    <circle cx="60" cy="50" r="25" opacity="0.6" />
+    <circle cx="45" cy="65" r="22" opacity="0.7" />
+    <circle cx="70" cy="30" r="15" opacity="0.5" />
+  </g>
+  
+  <!-- Particles -->
+  <circle cx="30" cy="30" r="2" fill="#8b7d5b" />
+  <circle cx="70" cy="70" r="3" fill="#8b7d5b" />
+  <circle cx="50" cy="50" r="1.5" fill="#8b7d5b" />
+  <circle cx="20" cy="60" r="2" fill="#8b7d5b" />
+  <circle cx="80" cy="40" r="2.5" fill="#8b7d5b" />
+</svg>

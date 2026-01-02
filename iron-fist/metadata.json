@@ -1,0 +1,5 @@
+{
+  "name": "Iron Fist: WebGL Arena",
+  "description": "A fully functional 3D fighting game prototype featuring physics-based combat, dynamic camera systems, and procedurally animated robot fighters using Three.js and React.",
+  "requestFramePermissions": []
+}

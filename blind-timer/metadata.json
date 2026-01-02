@@ -1,0 +1,5 @@
+{
+  "name": "Blind Timer 10.00s",
+  "description": "A precision game where you must stop the timer exactly at 10.00 seconds without looking.",
+  "requestFramePermissions": []
+}

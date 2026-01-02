@@ -1,0 +1,21 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="speed-blur">
+      <feGaussianBlur stdDeviation="6,0" />
+    </filter>
+    <linearGradient id="star-trail" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fcd34d" stop-opacity="0" />
+      <stop offset="100%" stop-color="#fff" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Speed Trails -->
+  <rect x="0" y="40" width="150" height="10" fill="url(#star-trail)" filter="url(#speed-blur)" />
+  <rect x="20" y="100" width="130" height="8" fill="url(#star-trail)" filter="url(#speed-blur)" />
+  <rect x="0" y="150" width="160" height="12" fill="url(#star-trail)" filter="url(#speed-blur)" />
+
+  <!-- Stars (Rounded) -->
+  <circle cx="160" cy="45" r="15" fill="#fcd34d" stroke="#fff" stroke-width="3" />
+  <circle cx="150" cy="104" r="10" fill="#fcd34d" stroke="#fff" stroke-width="3" />
+  <circle cx="170" cy="156" r="18" fill="#fcd34d" stroke="#fff" stroke-width="3" />
+</svg>

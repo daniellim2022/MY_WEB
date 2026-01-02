@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>my web</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            background: '#030014', // Deep space blue/black
+            brand: {
+              50: '#E0E7FF',
+              100: '#C7D2FE',
+              200: '#A5B4FC',
+              300: '#818CF8',
+              400: '#6366F1',
+              500: '#4F46E5', // Indigo Base
+              600: '#4338CA',
+              700: '#3730A3',
+              800: '#312E81',
+              900: '#1E1B4B',
+            },
+            neon: {
+              blue: '#00f3ff',
+              purple: '#bc13fe',
+              green: '#0afff0',
+            },
+            glass: {
+              100: 'rgba(255, 255, 255, 0.05)',
+              200: 'rgba(255, 255, 255, 0.10)',
+              300: 'rgba(255, 255, 255, 0.15)',
+            }
+          },
+          backgroundImage: {
+            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+            'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 360deg)',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'blob': 'blob 7s infinite',
+            'tilt': 'tilt 10s infinite linear',
+            'breathe': 'breathe 8s ease-in-out infinite',
+            'glitch-1': 'glitch-1 0.4s infinite linear alternate-reverse',
+            'glitch-2': 'glitch-2 0.4s infinite linear alternate-reverse',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            tilt: {
+              '0%, 50%, 100%': { transform: 'rotate(0deg)' },
+              '25%': { transform: 'rotate(5deg)' },
+              '75%': { transform: 'rotate(-5deg)' },
+            },
+            breathe: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.3' },
+              '50%': { transform: 'scale(1.1)', opacity: '0.5' },
+            },
+            'glitch-1': {
+              '0%': { transform: 'translate(0)' },
+              '20%': { transform: 'translate(-2px, 2px)' },
+              '40%': { transform: 'translate(-2px, -2px)' },
+              '60%': { transform: 'translate(2px, 2px)' },
+              '80%': { transform: 'translate(2px, -2px)' },
+              '100%': { transform: 'translate(0)' },
+            },
+            'glitch-2': {
+              '0%': { transform: 'translate(0)' },
+              '20%': { transform: 'translate(2px, -2px)' },
+              '40%': { transform: 'translate(2px, 2px)' },
+              '60%': { transform: 'translate(-2px, -2px)' },
+              '80%': { transform: 'translate(-2px, 2px)' },
+              '100%': { transform: 'translate(0)' },
+            }
+          }
+        },
+      },
+    }
+  </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "uuid": "https://aistudiocdn.com/uuid@^13.0.0"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>

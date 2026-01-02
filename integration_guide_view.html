@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 밈 스튜디오 통합 가이드</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            background-color: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-top: 40px;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+            background-color: #f0f8ff;
+            padding: 10px 15px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            font-weight: 600;
+        }
+
+        p,
+        li {
+            font-size: 16px;
+        }
+
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #c7254e;
+        }
+
+        pre {
+            background-color: #2d3436;
+            color: #dfe6e9;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        blockquote {
+            background-color: #e8f6f3;
+            border-left: 5px solid #1abc9c;
+            margin: 20px 0;
+            padding: 15px 20px;
+            color: #16a085;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ddd;
+            margin: 40px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🏆 [2026 AI 프로젝트] 4단계 완성 통합 가이드</h1>
+        <p>이 가이드는 <strong>[미션 1]</strong>부터 <strong>[미션 4]</strong>까지의 과정을 완벽하게 수행하기 위한 상세 매뉴얼입니다.<br>각 단계는 마우스
+            <strong>클릭</strong>과 <strong>키보드 입력</strong> 단위로 나뉘어 있으니 하나씩 차분히 따라와 주세요.
+        </p>
+
+        <hr>
+
+        <h2>📅 미션 1: AI 기능 페이지 준비 (완료됨)</h2>
+        <p><strong>목표:</strong> Google AI Studio를 활용한 AI 기능 페이지(<code>meme-studio</code>) 준비.</p>
+        <blockquote>
+            ✅ <strong>상태:</strong> 이미 다운로드 폴더에 완성된 <code>meme-studio</code> 프로젝트가 있으며, 전문가(AI)가 코드 오류 수정까지 완료한
+            상태입니다.<br>
+            우리는 이 완성된 코드를 사용하여 바로 다음 미션으로 넘어갑니다.
+        </blockquote>
+
+        <hr>
+
+        <h2>📅 미션 2: 대시보드 연동 (Routing)</h2>
+        <p><strong>목표:</strong> 기존 대시보드(<code>My_Web</code>) 안에 AI 페이지를 넣고, 아이콘을 클릭하면 이동하도록 만들기.</p>
+
+        <h3>2-1. 폴더 이동 (Finder)</h3>
+        <p><span class="step-number">1</span><strong>Finder</strong> 실행 → <strong>[다운로드]</strong> 폴더 클릭.</p>
+        <p><span class="step-number">2</span><code>ai-meme-studio...</code> 폴더 <strong>우클릭</strong> →
+            <strong>복사</strong>.
+        </p>
+        <p><span class="step-number">3</span><strong>[데스크탑]</strong> → <strong>[Project]</strong> →
+            <strong>[My_Web]</strong> 폴더로 이동.
+        </p>
+        <p><span class="step-number">4</span>빈 공간 <strong>우클릭</strong> → <strong>붙여넣기</strong>.</p>
+        <p><span class="step-number">5</span>붙여넣은 폴더 이름 클릭 → <code>meme-studio</code>로 이름 변경 (엔터).</p>
+
+        <h3>2-2. 설정 파일 수정 (VS Code)</h3>
+        <p><span class="step-number">1</span><strong>VS Code</strong> 열기 → <code>My_Web</code> 프로젝트 폴더가 열려있는지 확인.</p>
+        <p><span class="step-number">2</span>왼쪽 탐색기에서 <code>meme-studio</code> 폴더 클릭 → <code>vite.config.ts</code>
+            <strong>더블 클릭</strong>.
+        </p>
+        <p><span class="step-number">3</span>코드 중간 <code>server: { ... },</code> 바로 윗줄에 다음 코드 <strong>복사 &
+                붙여넣기</strong>:</p>
+        <pre><code>base: './',</code></pre>
+        <p>*(✅ 이미 수정되어 있다면 넘어가세요.)*</p>
+
+        <h3>2-3. 빌드 스크립트 추가 (<code>package.json</code>)</h3>
+        <p><span class="step-number">1</span><code>My_Web</code> 루트 폴더(가장 바깥쪽)에 있는 <code>package.json</code> <strong>더블
+                클릭</strong>.</p>
+        <p><span class="step-number">2</span><code>"scripts": {</code> 부분 찾기.</p>
+        <p><span class="step-number">3</span><code>"dev": "vite",</code> 아랫줄에 다음 코드 <strong>복사 & 붙여넣기</strong>:</p>
+        <pre><code>"build:meme-studio": "cd meme-studio && npm install && npm run build && mkdir -p ../public/meme-studio && cp -R dist/* ../public/meme-studio/",</code></pre>
+        <p><span class="step-number">4</span><strong>저장 (<code>Cmd + S</code>)</strong>.</p>
+
+        <h3>2-4. 대시보드 카드 추가 (<code>App.tsx</code>)</h3>
+        <p><span class="step-number">1</span><code>src/App.tsx</code> 파일 열기.</p>
+        <p><span class="step-number">2</span><code>const defaultLinks: WebLink[] = [</code> 부분을 찾기.</p>
+        <p><span class="step-number">3</span>배열 안에 다음 코드를 <strong>복사 & 붙여넣기</strong> (다른 <code>{...},</code> 뒤에 붙여넣으세요):
+        </p>
+        <pre><code>{
+  id: 'meme-studio',
+  title: 'AI 밈 스튜디오',
+  url: window.location.origin + import.meta.env.BASE_URL + 'meme-studio/index.html',
+  description: 'AI가 만들어주는 유머 짤방 생성기',
+  category: Category.Utility,
+  tags: ['AI', 'Meme', 'GenAI'],
+  createdAt: Date.now(),
+  isSystem: true
+},</code></pre>
+        <p><span class="step-number">4</span><strong>저장 (<code>Cmd + S</code>)</strong>.</p>
+
+        <hr>
+
+        <h2>📅 미션 3: API 연동 및 로컬 실행</h2>
+        <p><strong>목표:</strong> Google AI API Key를 받아서 연결하고, 내 컴퓨터에서 정상 작동하는지 확인하기.</p>
+
+        <h3>3-1. API Key 발급</h3>
+        <p><span class="step-number">1</span>[Google AI Studio] 접속.</p>
+        <p><span class="step-number">2</span><strong>Get API key</strong> 클릭 → <strong>Create API key</strong> 클릭.</p>
+        <p><span class="step-number">3</span>생성된 키를 <strong>복사</strong>.</p>
+
+        <h3>3-2. 환경 변수 파일 생성 (<code>.env</code>)</h3>
+        <p><span class="step-number">1</span><strong>VS Code</strong> 탐색기 빈 공간 우클릭 → <strong>New File</strong> (새 파일).
+        </p>
+        <p><span class="step-number">2</span>파일 이름을 <code>.env</code> 로 입력 (점<code>.</code>으로 시작해야 함).</p>
+        <p><span class="step-number">3</span>방금 만든 <code>.env</code> 파일에 아래 내용을 적으세요:</p>
+        <pre><code>GEMINI_API_KEY=여기에_복사한_키를_붙여넣으세요</code></pre>
+        <p>*(예: <code>GEMINI_API_KEY=AIzaSyD...</code> 따옴표 없이 붙여넣기)*</p>
+        <p><span class="step-number">4</span><strong>저장 (<code>Cmd + S</code>)</strong>.</p>
+
+        <h3>3-3. 로컬 실행 및 테스트</h3>
+        <p><span class="step-number">1</span><strong>Terminal</strong> (터미널) 열기 (<code>Ctrl + ~</code>).</p>
+        <p><span class="step-number">2</span>빌드 명령어 입력 후 엔터:</p>
+        <pre><code>npm run build:meme-studio</code></pre>
+        <p>*(1~2분 정도 소요됩니다. 완료될 때까지 기다리세요.)*</p>
+        <p><span class="step-number">3</span>실행 명령어 입력 후 엔터:</p>
+        <pre><code>npm run dev</code></pre>
+        <p><span class="step-number">4</span>나타나는 주소(<code>http://localhost...</code>)를 <strong>Cmd + 클릭</strong>.</p>
+        <p><span class="step-number">5</span>웹사이트가 열리면 <strong>"AI 밈 스튜디오"</strong> 카드를 클릭.</p>
+        <p><span class="step-number">6</span><strong>"오늘 점심"</strong> 같은 키워드를 넣고 밈이 생성되는지 확인하세요!</p>
+
+        <hr>
+
+        <h2>📅 미션 4: GitHub Pages 배포</h2>
+        <p><strong>목표:</strong> 전 세계 누구나 접속할 수 있도록 인터넷에 배포하기.</p>
+
+        <h3>4-1. 배포 스크립트 확인 (<code>package.json</code>)</h3>
+        <p><span class="step-number">1</span><code>package.json</code> 파일을 다시 엽니다.</p>
+        <p><span class="step-number">2</span><code>"predeploy"</code> 부분이 있는지 확인합니다. 없다면 <code>"scripts"</code> 안에 아래 줄을
+            추가/수정하세요:</p>
+        <pre><code>"predeploy": "npm run build:meme-studio && npm run build",</code></pre>
+        <p>*(이렇게 하면 배포 전에 자동으로 밈 스튜디오도 같이 빌드합니다.)*</p>
+
+        <h3>4-2. 배포 명령어 실행</h3>
+        <p><span class="step-number">1</span>터미널에서 서버가 실행 중이라면 <code>Ctrl + C</code>를 눌러서 끕니다.</p>
+        <p><span class="step-number">2</span>다음 명령어를 입력하고 엔터:</p>
+        <pre><code>npm run deploy</code></pre>
+        <p><span class="step-number">3</span>"Published" 메시지가 뜰 때까지 기다립니다. (약 2~3분 소요)</p>
+
+        <h3>4-3. 최종 확인</h3>
+        <p><span class="step-number">1</span>GitHub 저장소 페이지로 이동 → <strong>Settings</strong> → <strong>Pages</strong>.
+        </p>
+        <p><span class="step-number">2</span>배포된 주소 (URL)를 클릭하여 접속.</p>
+        <p><span class="step-number">3</span>스마트폰이나 다른 컴퓨터에서도 접속해서 기능이 잘 되는지 자랑해보세요! 🎉</p>
+
+        <div class="footer">
+            <p>Created by Google DeepMind Agentic Coding</p>
+        </div>
+    </div>
+</body>
+
+</html>

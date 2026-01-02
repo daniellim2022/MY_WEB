@@ -1,0 +1,25 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="motionBlurV3">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4,0" />
+    </filter>
+  </defs>
+  
+  <!-- Star Pattern Flash Lines -->
+  <g stroke="#ffffff" stroke-width="6" stroke-linecap="round">
+    <!-- Center converging lines -->
+    <path d="M10 100 L90 100" opacity="0.8" filter="url(#motionBlurV3)"/>
+    <path d="M190 100 L110 100" opacity="0.8" filter="url(#motionBlurV3)"/>
+    <path d="M100 10 L100 90" opacity="0.8" filter="url(#motionBlurV3)"/>
+    <path d="M100 190 L100 110" opacity="0.8" filter="url(#motionBlurV3)"/>
+    
+    <!-- Diagonal Slashes -->
+    <path d="M20 20 L80 80" stroke-width="4" opacity="1" />
+    <path d="M180 180 L120 120" stroke-width="4" opacity="1" />
+    <path d="M180 20 L120 80" stroke-width="4" opacity="1" />
+    <path d="M20 180 L80 120" stroke-width="4" opacity="1" />
+  </g>
+  
+  <!-- Central Spark -->
+  <circle cx="100" cy="100" r="20" fill="#fff" opacity="0.9" filter="url(#motionBlurV3)"/>
+</svg>
